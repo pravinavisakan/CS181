@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{enumerate}
+
+\begin{document}
+
+Definition: The length of a regular expression is defined as follows: Consider a regular expression $R$.
+\begin{itemize}
+\item If $R = a$, where $a$ is a single character, then $|R| = 1$.
+\item If $R = \varepsilon$, then $|R| = 0$. 
+\item If $R = R_1R_2$, the concatenation of regular expressions $R_1$ and $R_2$, then $|R| = |R_1| + |R_2|$.
+\item If $R = R_1^*$, the star of the regular expression $R_1$, then $|R| = |R_1|$. 
+\item If $R = R_1 \cup R_2$, the union of regular expressions $R_1$ and $R_2$, then $|R| = \max(R_1, R_2)$.
+\end{itemize}
+
+
+\end{document}
