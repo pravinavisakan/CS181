@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\newcommand{\numpy}{{\tt numpy}}    % tt font for numpy
+
+\topmargin -.5in
+\textheight 9in
+\oddsidemargin -.25in
+\evensidemargin -.25in
+\textwidth 7in
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem*{lemma}{Lemma}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\begin{document}
+
+% ========== Edit your name here
+\author{Junfu Chen}
+\title{Proof of Pumping Lemma using Regular Expression}
+\maketitle
+
+\medskip
+\begin{definition}
+A regular expression $R$ is a \textbf{reduced regular expression} if $R = A_1B_1^*A_2B_2^*...A_{n-1}B_{n-1}^*A_n$ for which
+\begin{enumerate}
+    \item $A_i \in \Sigma^*$ for all $i$ (i.e. $A_i$ contains no union or star operation).
+    \item $B_i$ is non-empty regular expression for all $i$.
+\end{enumerate}
+\end{definition}
+\begin{lemma}[Pumping Lemma for Reduced Regular Expression] Let $R$ be a reduced regular expression. Then there exists an integer $p\geq 1$ depending only on $R$ such that any string $w \in L(R)$ of length at least $p$ can be written as $w = xyz$, satisfying the following conditions:
+\begin{enumerate}
+    \item $|y| \geq = 1$
+    \item $|xy|\leq p$
+    \item $(\forall n\geq 0)(xy^nz\in L(R))$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Let $p$ be the length of $R$ plus $1$. Take any $w\in L(R)$ with $|w|\geq p$. Since $R$ is a reduced regular expression, $R = A_1B_1^*A_2B_2^*...A_{n-1}B_{n-1}^*A_n$ with $A_i \in \Sigma^*$ and $B_i$ nonempty regular expression. Since $w \in L(R)$, there exists $a_1, a_2, ... ,a_n, b_1, b_2, ...,b_{n-1}$ such that $w = a_1b_1 ... a_{n-1}b_{n-1}a_n$ with $a_i \in L(A_i)$ and $b_i\in L(B_i^*)$ for all $i$.
+
+Since $a_i \in L(A_i)$ and $A_i \in \Sigma^*$, $|a_i| \leq |A_i|$. Then 
+\begin{align*}
+    |w| &= \sum_{i=1}^n{|a_i|} + \sum_{i=1}^{n-1}{|b_i|}\\
+    |w| &\leq \sum_{i=1}^n{|A_i|} + \sum_{i=1}^{n-1}{|b_i|}
+\end{align*}
+
+Since $|w| \geq p = |R| + 1$, $\sum_{i=1}^n{|A_i|} \leq |R|$, we must have $\sum_{i=1}^{n-1}{|b_i|} \geq 1$. Hence there exists at least one $k$ such that $|b_k| \geq 1|$. Pick the $b_k$ with the smallest index, such that $|b_i| = 0$ for all $i < k$.
+
+Since $b_k \in L(B_k^*)$, there exists $y\in B_k$ such that $b_k = y^t$ for some $t\geq 1$ and $y^n \in B_k ^*$ for all n. 
+
+Let $x = a_1b_1a_2 ... b_{k-1}a_k$, $z = y^{t-1}a_{k+1}b_{k+1}...b_{n-1}a_n$, then we have
+\begin{enumerate}
+    \item[-] $|y| \geq = 1$ since $|y^t| \geq 1$.
+    \item[-] $|xy|\leq p$ since $|xy| = \sum_{i=1}^{k}|a_i| + \sum_{i=1}^{k-1}|b_i| + |y| \leq \sum_{i=1}^{k}|A_i| + 0 + |B_k| \leq p$
+    \item[-] $(\forall n\geq 0)(xy^nz\in L(R))$ since 
+    \begin{align*}
+        xy^nz &= (a_1b_1a_2 ... b_{k-1}a_k)(y^n)(y^{t-1}a_{k+1}b_{k+1}...b_{n-1}a_n)\\
+        &= a_1b_1a_2 ... b_{k-1}a_ky^{n +t-1}a_{k+1}b_{k+1}...b_{n-1}a_n \in L(R)
+    \end{align*}
+    because $a_i\in A_i$ for all i, $b_i \in B_i^*$ for all $i \neq k$ and $y^{n +t-1} \in B_k$.
+\end{enumerate}
+Thus proving the pumping lemma.
+\end{proof}
+
+\end{document}
+\grid
+\grid
