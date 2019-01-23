@@ -19,11 +19,23 @@
 \begin{document}
 
 % ========== Edit your name here
-\author{Junfu Chen}
-\title{Proof of Pumping Lemma using Regular Expression}
+\author{Junfu Chen, Erynn Marie, Akshay Smit, Pravin Visakan}
+\title{A Proof of the Pumping Lemma using Regular Expressions}
 \maketitle
 
 \medskip
+
+\begin{definition}
+The length of a regular expression is defined as follows: Consider a regular expression $R$.
+\begin{enumerate}
+\item If $R = a$, where $a$ is a single character, then $|R| = 1$.
+\item If $R = \varepsilon$, then $|R| = 0$. 
+\item If $R = R_1R_2$, the concatenation of regular expressions $R_1$ and $R_2$, then $|R| = |R_1| + |R_2|$.
+\item If $R = R_1^*$, the star of the regular expression $R_1$, then $|R| = |R_1|$. 
+\item If $R = R_1 \cup R_2$, the union of regular expressions $R_1$ and $R_2$, then $|R| = \max(R_1, R_2)$.
+\end{enumerate}
+\end{definition}
+
 \begin{definition}
 A regular expression $R$ is a \textbf{reduced regular expression} if $R = A_1B_1^*A_2B_2^*...A_{n-1}B_{n-1}^*A_n$ for which
 \begin{enumerate}
