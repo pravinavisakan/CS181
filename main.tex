@@ -14,6 +14,10 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem*{lemma}{Lemma}
 
+\newtheoremstyle{case}{}{3pt}{}{}{}{:}{ }{}
+
+\newtheorem{case}{Case}
+
 \theoremstyle{definition}
 \newtheorem*{definition}{Definition}
 \begin{document}
@@ -24,7 +28,14 @@
 \maketitle
 
 \medskip
-
+\begin{lemma}[Pumping Lemma for Regular Expression] Let $R$ be a regular expression. Then there exists an integer $p\geq 1$ depending only on $R$ such that any string $w \in L(R)$ of length at least $p$ can be written as $w = xyz$, satisfying the following conditions:
+\begin{enumerate}
+    \item $|y| \geq = 1$
+    \item $|xy|\leq p$
+    \item $(\forall n\geq 0)(xy^nz\in L(R))$
+\end{enumerate}
+\end{lemma}
+\smallskip
 \begin{definition}
 The length of a regular expression is defined as follows: Consider a regular expression $R$.
 \begin{enumerate}
@@ -35,6 +46,20 @@ The length of a regular expression is defined as follows: Consider a regular exp
 \item If $R = R_1 \cup R_2$, the union of regular expressions $R_1$ and $R_2$, then $|R| = \max(R_1, R_2)$.
 \end{enumerate}
 \end{definition}
+From the definition of a regular expression, there are three cases under consideration:
+\begin{enumerate}
+\item Regular expressions solely produced by the concatenation of other regular expressions
+\item Reduced regular expressions (as defined below)
+\item Regular expressions as produced by a union of two other regular expressions
+\end{enumerate}
+
+\begin{case} Regular expressions produced solely via concatenation
+\begin{proof}
+Base regular expressions consist of a single letter $a$, where $a \in \Sigma^*$, the empty string $\varepsilon$, or the empty set. These base strings are finite. Concatenation of these strings also produces finite strings. Any string of this type will have be of the form $R_1 \circ R_2 = R$. To satisfy the pumping lemma, choose $p \ge |R|$. The lemma is vacuously true in this case.
+\end{proof}
+\end{case}
+\begin{case}
+Reduced regular expressions
 
 \begin{definition}
 A regular expression $R$ is a \textbf{reduced regular expression} if $R = A_1B_1^*A_2B_2^*...A_{n-1}B_{n-1}^*A_n$ for which
@@ -43,13 +68,6 @@ A regular expression $R$ is a \textbf{reduced regular expression} if $R = A_1B_1
     \item $B_i$ is non-empty regular expression for all $i$.
 \end{enumerate}
 \end{definition}
-\begin{lemma}[Pumping Lemma for Reduced Regular Expression] Let $R$ be a reduced regular expression. Then there exists an integer $p\geq 1$ depending only on $R$ such that any string $w \in L(R)$ of length at least $p$ can be written as $w = xyz$, satisfying the following conditions:
-\begin{enumerate}
-    \item $|y| \geq = 1$
-    \item $|xy|\leq p$
-    \item $(\forall n\geq 0)(xy^nz\in L(R))$
-\end{enumerate}
-\end{lemma}
 \begin{proof}
 Let $p$ be the length of $R$ plus $1$. Take any $w\in L(R)$ with $|w|\geq p$. Since $R$ is a reduced regular expression, $R = A_1B_1^*A_2B_2^*...A_{n-1}B_{n-1}^*A_n$ with $A_i \in \Sigma^*$ and $B_i$ nonempty regular expression. Since $w \in L(R)$, there exists $a_1, a_2, ... ,a_n, b_1, b_2, ...,b_{n-1}$ such that $w = a_1b_1 ... a_{n-1}b_{n-1}a_n$ with $a_i \in L(A_i)$ and $b_i\in L(B_i^*)$ for all $i$.
 
@@ -74,9 +92,14 @@ Let $x = a_1b_1a_2 ... b_{k-1}a_k$, $z = y^{t-1}a_{k+1}b_{k+1}...b_{n-1}a_n$, th
     \end{align*}
     because $a_i\in A_i$ for all i, $b_i \in B_i^*$ for all $i \neq k$ and $y^{n +t-1} \in B_k$.
 \end{enumerate}
-Thus proving the pumping lemma.
+Thus proving the pumping lemma for reduced regular expressions.
 \end{proof}
+\end{case}
 
+%Put the third case here
+\begin{case}
+Regular expressions as the product of unions
+\end{case}
 \end{document}
 \grid
 \grid
